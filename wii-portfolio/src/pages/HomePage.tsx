@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
 import HomeFooter from "@/components/HomeFooter";
 import links from "@/data/links";
 
 function HomePage() {
-  const [hours, setHours] = useState("");
-  const [minutes, setMinutes] = useState("");
-  const [ampm, setAmpm] = useState("");
-  const [colonVisible, setColonVisible] = useState(true);
-  const [, setDate] = useState("");
   const navigate = useNavigate();
   const [zoom, setZoom] = useState<number | null>(null);
   const [zoomPosition, setZoomPosition] = useState({
@@ -21,29 +15,6 @@ function HomePage() {
   });
   const [, setIsZooming] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = now.getHours() % 12 || 12;
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      const ampm = now.getHours() >= 12 ? "PM" : "AM";
-
-      setHours(hours.toString());
-      setMinutes(minutes);
-      setAmpm(ampm);
-      setColonVisible((prev) => !prev);
-
-      const day = now.getDate();
-      const month = now.getMonth() + 1;
-      setDate(`Sun ${month}/${day}`);
-    };
-
-    updateTime();
-    const intervalId = setInterval(updateTime, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   const handleChannelClick = (
     index: number,
@@ -66,6 +37,21 @@ function HomePage() {
       navigate(route);
     }, 250);
   };
+
+  // Add dummy channels if links count is less than 12
+  const filledLinks = [...links];
+  const dummyChannelsNeeded = 8 - filledLinks.length;
+
+  if (dummyChannelsNeeded > 0) {
+    for (let i = 0; i < dummyChannelsNeeded; i++) {
+      filledLinks.push({
+        name: "willwhitehead.com",
+        route: "#",
+        icon: "",
+        backgroundImage: "",
+      });
+    }
+  }
 
   // Framer Motion Hover Animation
   const hoverAnimation = {
@@ -93,7 +79,7 @@ function HomePage() {
         className="relative min-h-screen flex flex-col items-center"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl w-full px-5 mt-10">
-          {links.map((channel, index) => (
+          {filledLinks.map((channel, index) => (
             <motion.div
               key={index}
               onClick={(e) =>
@@ -108,7 +94,7 @@ function HomePage() {
                 <img
                   src={channel.backgroundImage}
                   alt={`${channel.name} background`}
-                  className="absolute transform opacity-100 -top-8 left-6 transition-transform duration-300 group-hover:-translate-y-2"
+                  className="absolute transform opacity-100 -top-8 transition-transform duration-300 group-hover:-translate-y-2"
                   style={{ backgroundColor: "black" }}
                 />
               </div>
@@ -154,48 +140,16 @@ function HomePage() {
             transition={{
               duration: 0.25,
             }}
-            className="fixed bg-gray-200 flex justify-center items-center"
+            className="fixed bg-black flex justify-center items-center"
           >
             <div className="text-center">
-              <p className="text-6xl">{links[zoom].icon}</p>
-              <p className="text-xl font-semibold mt-2">{links[zoom].name}</p>
+              <p className="text-6xl">{filledLinks[zoom].icon}</p>
+              <p className="text-xl font-semibold mt-2">
+                {filledLinks[zoom].name}
+              </p>
             </div>
           </motion.div>
         )}
-
-        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex justify-between w-full  px-20 z-10">
-          <a
-            href="https://www.linkedin.com/in/willwhitehead122/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gray-100 rounded-full w-20 h-20 shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-          >
-            <span className="text-3xl text-opacity-100">
-              <IconBrandLinkedin size={32} />
-            </span>
-          </a>
-
-          <div className="text-center">
-            <p className="text-4xl text-gray-600">
-              <code>
-                {hours}
-                <span>{colonVisible ? ":" : " "}</span>
-                {minutes} <span className="text-xl">{ampm}</span>
-              </code>
-            </p>
-          </div>
-
-          <a
-            href="https://github.com/w1lt"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gray-100 rounded-full w-20 h-20 shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-          >
-            <span className="text-3xl text-opacity-100">
-              <IconBrandGithub size={32} />
-            </span>
-          </a>
-        </div>
 
         <HomeFooter />
       </motion.div>

@@ -69,8 +69,9 @@ function WiiTemplate() {
       case "/settings":
         return {
           content: <SettingsPage />,
-          buttonText: "Back",
-          buttonAction: () => navigate("/"),
+          buttonText: "View Source",
+          buttonAction: () =>
+            window.open("https://github.com/w1lt/wii-whitehead"),
         };
       default:
         return {
