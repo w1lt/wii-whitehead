@@ -1,40 +1,41 @@
-// centralize the links in one place
+import spotifyimage from "@/assets/channels/spotify.png";
+import projectsimage from "@/assets/channels/projects.png";
+import experienceimage from "@/assets/channels/experience.webp";
+
 const links = [
   {
     name: "about me",
-    icon: "💿",
+    icon: "👨‍💻",
     route: "/about",
-    tint: "rgba(0, 128, 255, 0.2)",
   },
   {
     name: "experience",
     icon: "📁",
     route: "/experience",
-    tint: "rgba(255, 0, 0, 0.2)",
+    backgroundImage: experienceimage,
   },
   {
     name: "projects",
     icon: "🚀",
     route: "/projects",
-    tint: "rgba(255, 255, 0, 0.2)",
+    backgroundImage: projectsimage,
   },
   {
     name: "spotify",
     icon: "🎧",
     route: "/spotify",
-    tint: "rgba(0, 255, 0, 0.2)",
+    backgroundImage: spotifyimage, // Directly use the imported image variable
   },
   {
     name: "resume",
     icon: "📄",
     route: "/resume",
-    tint: "rgba(255, 0, 255, 0.2)",
   },
   {
     name: "settings",
     icon: "⚙️",
     route: "/settings",
-    tint: "rgba(128, 128, 128, 0.2)",
+    backgroundImage: "/path/to/settings-background.jpg", // Ensure the path is correct or import the image
   },
 ];
 

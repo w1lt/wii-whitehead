@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import cursorImage from "./assets/cursor.png";
-import cursorTrailImage from "./assets/cursortrail.png";
-import grabImage from "./assets/grab.png";
-import grabShadowImage from "./assets/grabshadow.png"; // Import the grab shadow image
+import cursorImage from "@/assets/ui/cursor.png";
+import cursorTrailImage from "@/assets/ui/cursortrail.png";
+import grabImage from "@/assets/ui/grab.png";
+import grabShadowImage from "@/assets/ui/grabshadow.png";
 
 const CustomCursor = () => {
   useEffect(() => {

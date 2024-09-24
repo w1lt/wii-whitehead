@@ -3,55 +3,103 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import links from "@/data/links";
 
-import arrow from "../assets/arrow.png";
+import arrow from "@/assets/ui/arrow.png";
 import AboutPage from "./AboutPage";
 import ExperiencePage from "./ExperiencePage";
 import SpotifyPage from "./SpotifyPage";
 import SettingsPage from "./SettingsPage";
 import ProjectsPage from "./ProjectsPage";
+import ResumePage from "./ResumePage";
 
 function WiiTemplate() {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current route
-  const [direction, setDirection] = useState(0); // Track direction of navigation
-  const isNavigating = useRef(false); // Ref to prevent multiple fast clicks
-  const [zoomOut, setZoomOut] = useState(false); // Track zoom out for home navigation
+  const location = useLocation();
+  const [direction, setDirection] = useState(0);
+  const isNavigating = useRef(false);
+  const [zoomOut, setZoomOut] = useState(false);
 
-  const pages = links.map((link) => link.route); // Extract the routes from the links array
+  const pages = links.map((link) => link.route);
 
   // Handles the 'Home' navigation
   const handleHomeClick = () => {
-    setZoomOut(true); // Trigger zoom-out animation
+    setZoomOut(true);
     setTimeout(() => {
       navigate("/");
-      setZoomOut(false); // Reset zoom-out after navigation
-    }, 175); // Delay navigation to complete zoom-out
+      setZoomOut(false);
+    }, 175);
   };
 
-  // Handles the 'Start' button to open a link in a new tab
-  const handleStartClick = () => {
-    window.open("https://example.com", "_blank"); // Replace with desired URL
+  // Combines content rendering with button logic
+  const renderPageAndStartButton = () => {
+    switch (location.pathname) {
+      case "/about":
+        return {
+          content: <AboutPage />,
+          buttonText: "Learn More",
+          buttonAction: () => navigate("/"),
+        };
+      case "/experience":
+        return {
+          content: <ExperiencePage />,
+          buttonText: "View Resume",
+          buttonAction: () => navigate("/resume"),
+        };
+      case "/projects":
+        return {
+          content: <ProjectsPage />,
+          buttonText: "View GitHub",
+          buttonAction: () => window.open("https://github.com/w1lt", "_blank"),
+        };
+      case "/spotify":
+        return {
+          content: <SpotifyPage />,
+          buttonText: "Listen on Spotify",
+          buttonAction: () =>
+            window.open("https://open.spotify.com/", "_blank"),
+        };
+      case "/resume":
+        return {
+          content: <ResumePage />,
+          buttonText: "Download PDF",
+          buttonAction: () =>
+            window.open(
+              "https://docs.google.com/document/d/1AfyetAPTr0x9UEfcnXV7LvWgqlnbYmetNXsP6QqOhN4/export?format=pdf"
+            ),
+        };
+      case "/settings":
+        return {
+          content: <SettingsPage />,
+          buttonText: "Back",
+          buttonAction: () => navigate("/"),
+        };
+      default:
+        return {
+          content: <AboutPage />,
+          buttonText: "Start",
+          buttonAction: () => navigate("/"),
+        };
+    }
   };
+
+  const { content, buttonText, buttonAction } = renderPageAndStartButton();
 
   // Handles the page navigation with debounce to prevent rapid clicking
   const handlePageChange = (newDirection: number) => {
-    if (isNavigating.current) return; // Prevent navigation if already navigating
-    isNavigating.current = true; // Set navigation lock
+    if (isNavigating.current) return;
+    isNavigating.current = true;
 
     const currentPageIndex = pages.indexOf(location.pathname);
     const nextPageIndex =
       (currentPageIndex + newDirection + pages.length) % pages.length;
 
-    setDirection(newDirection); // Set the direction for animation
-    navigate(pages[nextPageIndex]); // Navigate to the next or previous page
+    setDirection(newDirection);
+    navigate(pages[nextPageIndex]);
 
-    // Allow navigation again after the animation duration
     setTimeout(() => {
       isNavigating.current = false;
-    }, 600); // Slightly longer delay to ensure smooth animation
+    }, 600);
   };
 
-  // Animation variants for sliding in and out
   const variants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
@@ -67,58 +115,36 @@ function WiiTemplate() {
     }),
   };
 
-  // Animation variants for zooming out
   const zoomOutVariants = {
     initial: { scale: 1, opacity: 1 },
-    zoomOut: { scale: 0.5, opacity: 0, transition: { duration: 0.175 } }, // Shrink and fade-out
-  };
-
-  // Render the appropriate page content based on the current route
-  const renderContent = () => {
-    switch (location.pathname) {
-      case "/about":
-        return <AboutPage />;
-      case "/experience":
-        return <ExperiencePage />;
-      case "/settings":
-        return <SettingsPage />;
-      case "/spotify":
-        return <SpotifyPage />;
-      case "/projects":
-        return <ProjectsPage />;
-      default:
-        return <AboutPage />; // Default page or 404 page
-    }
+    zoomOut: { scale: 0.5, opacity: 0, transition: { duration: 0.175 } },
   };
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }} // You can adjust the duration as needed
+      transition={{ duration: 0.5 }}
     >
       <AnimatePresence initial={false} custom={direction}>
-        {/* Motion.div for animating the entire content, including footer */}
         <motion.div
-          key={location.pathname} // Ensure animation occurs when path changes
-          custom={direction} // Pass direction to variants
-          variants={zoomOut ? zoomOutVariants : variants} // Zoom-out if navigating home
+          key={location.pathname}
+          custom={direction}
+          variants={zoomOut ? zoomOutVariants : variants}
           initial="enter"
-          animate={zoomOut ? "zoomOut" : "center"} // Trigger zoom-out when navigating home
+          animate={zoomOut ? "zoomOut" : "center"}
           exit="exit"
           transition={{
             type: "spring",
             stiffness: 300,
             damping: 30,
             duration: 0.25,
-          }} // Customize transition
+          }}
           className="fixed inset-0 bg-white rounded-[60px] shadow-lg pt-6 px-12 pb-12 flex flex-col justify-between"
-          style={{ minHeight: "100vh", minWidth: "100vw" }} // Ensures full viewport
+          style={{ minHeight: "100vh", minWidth: "100vw" }}
         >
           {/* Scrollable content */}
-          <div className="overflow-y-auto flex-grow pb-24">
-            {renderContent()}
-          </div>
+          <div className="overflow-y-auto flex-grow pb-24">{content}</div>
 
           {/* Navigation arrows */}
           <div className="absolute left-5 top-1/2 transform -translate-y-1/2">
@@ -126,7 +152,6 @@ function WiiTemplate() {
               onClick={() => handlePageChange(-1)}
               className="text-4xl transform transition-all duration-300 hover:scale-150"
             >
-              {/* Flip the left arrow horizontally using css transform */}
               <img
                 src={arrow}
                 alt="Left arrow"
@@ -147,7 +172,7 @@ function WiiTemplate() {
             </button>
           </div>
 
-          {/* Footer included in the animations */}
+          {/* Footer with dynamic Start button */}
           <footer className="fixed bottom-0 left-0 right-0 bg-gray-200 py-3 w-full flex justify-center items-center space-x-12">
             <button
               onClick={handleHomeClick}
@@ -157,10 +182,10 @@ function WiiTemplate() {
             </button>
 
             <button
-              onClick={handleStartClick}
+              onClick={buttonAction}
               className="bg-white px-16 py-8 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
             >
-              Start
+              {buttonText}
             </button>
           </footer>
         </motion.div>

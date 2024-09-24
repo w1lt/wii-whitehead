@@ -18,16 +18,6 @@ function SpotifyPage() {
       >
         Follow me on Spotify
       </a>
-
-      {/* Spotify Embed for Currently Playing Song */}
-      <div className="mt-10">
-        <iframe
-          src="https://open.spotify.com/embed/track/1CTvXu9xeWG44eaSNWvIQj"
-          width="300"
-          height="380"
-          allow="encrypted-media"
-        ></iframe>
-      </div>
     </div>
   );
 }
