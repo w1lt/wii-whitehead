@@ -3,33 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
 import HomeFooter from "@/components/HomeFooter";
+import links from "@/data/links";
 
 function HomePage() {
-  const [channels] = useState([
-    {
-      name: "about me",
-      icon: "💿",
-      route: "/about",
-    },
-    {
-      name: "experience",
-      icon: "📁",
-      route: "/experience",
-      tint: "rgba(255, 0, 0, 0.2)",
-    },
-    {
-      name: "spotify",
-      icon: "🎧",
-      route: "/spotify",
-      tint: "rgba(0, 255, 0, 0.2)",
-    },
-    {
-      name: "settings",
-      icon: "⚙️",
-      route: "/settings",
-    },
-  ]);
-
   const [hours, setHours] = useState("");
   const [minutes, setMinutes] = useState("");
   const [ampm, setAmpm] = useState("");
@@ -91,6 +67,13 @@ function HomePage() {
     }, 250);
   };
 
+  // Framer Motion Hover Animation
+  const hoverAnimation = {
+    scale: 1.05,
+    y: -10,
+    boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)",
+  };
+
   // Fade-out animation variants
   const fadeOutVariants = {
     initial: { opacity: 1 },
@@ -101,24 +84,24 @@ function HomePage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }} // You can adjust the duration as needed
+      transition={{ duration: 0.5 }}
     >
       <motion.div
         initial="initial"
         animate={fadeOut ? "fade" : "initial"}
         variants={fadeOutVariants}
-        className="relative min-h-screen bg-white flex flex-col items-center"
+        className="relative min-h-screen flex flex-col items-center"
       >
-        <div className="grid grid-cols-4 gap-4 max-w-7xl w-full px-5 mt-10">
-          {channels.map((channel, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl w-full px-5 mt-10">
+          {links.map((channel, index) => (
             <motion.div
               key={index}
               onClick={(e) =>
                 handleChannelClick(index, channel.route, e.currentTarget)
               }
-              className={` relative bg-gray-200 border border-gray-300 rounded-3xl shadow-lg flex flex-col items-center justify-center transition-transform duration-300 ${
-                zoom === index ? "z-10" : ""
-              } ${zoom === null ? "hover:scale-105" : ""}`}
+              whileHover={hoverAnimation}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="relative border border-gray-300 rounded-3xl shadow-lg flex flex-col items-center justify-center"
             >
               {/* Tint Overlay */}
               <div
@@ -159,10 +142,8 @@ function HomePage() {
             className="fixed bg-gray-200 flex justify-center items-center"
           >
             <div className="text-center">
-              <p className="text-6xl">{channels[zoom].icon}</p>
-              <p className="text-xl font-semibold mt-2">
-                {channels[zoom].name}
-              </p>
+              <p className="text-6xl">{links[zoom].icon}</p>
+              <p className="text-xl font-semibold mt-2">{links[zoom].name}</p>
             </div>
           </motion.div>
         )}

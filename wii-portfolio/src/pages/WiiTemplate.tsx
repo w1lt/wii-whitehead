@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Import your pages
-import AboutPage from "./AboutPage";
-import ExperiencePage from "./ExperiencePage";
-import SettingsPage from "./SettingsPage";
-import SpotifyPage from "./SpotifyPage";
+import links from "@/data/links";
 
 import arrow from "../assets/arrow.png";
+import AboutPage from "./AboutPage";
+import ExperiencePage from "./ExperiencePage";
+import SpotifyPage from "./SpotifyPage";
+import SettingsPage from "./SettingsPage";
+import ProjectsPage from "./ProjectsPage";
 
 function WiiTemplate() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function WiiTemplate() {
   const isNavigating = useRef(false); // Ref to prevent multiple fast clicks
   const [zoomOut, setZoomOut] = useState(false); // Track zoom out for home navigation
 
-  const pages = ["/about", "/experience", "/spotify", "/settings"]; // Add your routes here
+  const pages = links.map((link) => link.route); // Extract the routes from the links array
 
   // Handles the 'Home' navigation
   const handleHomeClick = () => {
@@ -84,6 +84,8 @@ function WiiTemplate() {
         return <SettingsPage />;
       case "/spotify":
         return <SpotifyPage />;
+      case "/projects":
+        return <ProjectsPage />;
       default:
         return <AboutPage />; // Default page or 404 page
     }
