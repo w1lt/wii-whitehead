@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import HomeFooter from "@/components/HomeFooter";
+import ChannelComponent from "@/components/ChannelComponent"; // Import ChannelComponent
 import links from "@/data/links";
 
 function HomePage() {
@@ -38,28 +39,6 @@ function HomePage() {
     }, 250);
   };
 
-  // Add dummy channels if links count is less than 12
-  const filledLinks = [...links];
-  const dummyChannelsNeeded = 8 - filledLinks.length;
-
-  if (dummyChannelsNeeded > 0) {
-    for (let i = 0; i < dummyChannelsNeeded; i++) {
-      filledLinks.push({
-        name: "willwhitehead.com",
-        route: "#",
-        icon: "",
-        backgroundImage: "",
-      });
-    }
-  }
-
-  // Framer Motion Hover Animation
-  const hoverAnimation = {
-    scale: 1.05,
-    y: -10,
-    boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
-  };
-
   // Fade-out animation variants
   const fadeOutVariants = {
     initial: { opacity: 1 },
@@ -79,44 +58,13 @@ function HomePage() {
         className="relative min-h-screen flex flex-col items-center"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl w-full px-5 mt-10">
-          {filledLinks.map((channel, index) => (
-            <motion.div
+          {links.map((channel, index) => (
+            <ChannelComponent
               key={index}
-              onClick={(e) =>
-                handleChannelClick(index, channel.route, e.currentTarget)
-              }
-              whileHover={hoverAnimation}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative border border-gray-300 rounded-3xl shadow-lg flex flex-col items-center justify-center overflow-hidden group bg-black"
-            >
-              <div className="relative w-full h-full bg-black">
-                {/* Channel Image */}
-                <img
-                  src={channel.backgroundImage}
-                  alt={`${channel.name} background`}
-                  className="absolute transform opacity-100 -top-8 transition-transform duration-300 group-hover:-translate-y-2"
-                  style={{ backgroundColor: "black" }}
-                />
-              </div>
-
-              {/* Gradient Overlay */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to top, rgba(0, 0, 0, .9), rgba(0, 0, 0, .6))",
-                  zIndex: 10,
-                }}
-              ></div>
-
-              {/* Content */}
-              <div className="p-4 flex flex-col items-center justify-center z-10">
-                <p className="text-6xl">{channel.icon}</p>
-                <p className="text-xl font-semibold mt-2 text-center text-white group-hover:translate-y-0 transition-transform duration-300">
-                  {channel.name}
-                </p>
-              </div>
-            </motion.div>
+              channel={channel}
+              index={index}
+              onClick={handleChannelClick}
+            />
           ))}
         </div>
 
@@ -143,10 +91,8 @@ function HomePage() {
             className="fixed bg-black flex justify-center items-center"
           >
             <div className="text-center">
-              <p className="text-6xl">{filledLinks[zoom].icon}</p>
-              <p className="text-xl font-semibold mt-2">
-                {filledLinks[zoom].name}
-              </p>
+              <p className="text-6xl">{links[zoom].icon}</p>
+              <p className="text-xl font-semibold mt-2">{links[zoom].name}</p>
             </div>
           </motion.div>
         )}

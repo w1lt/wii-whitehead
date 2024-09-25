@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import links from "@/data/links";
@@ -21,13 +21,29 @@ function WiiTemplate() {
   const pages = links.map((link) => link.route);
 
   // Handles the 'Home' navigation
-  const handleHomeClick = () => {
+  const handleHomeClick = useCallback(() => {
     setZoomOut(true);
     setTimeout(() => {
       navigate("/");
       setZoomOut(false);
     }, 175);
-  };
+  }, [navigate]);
+
+  // Listen for 'Esc' key to navigate to home
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleHomeClick();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleHomeClick]);
 
   // Combines content rendering with button logic
   const renderPageAndStartButton = () => {
@@ -177,14 +193,14 @@ function WiiTemplate() {
           <footer className="fixed bottom-0 left-0 right-0 bg-gray-200 py-3 w-full flex justify-center items-center space-x-12">
             <button
               onClick={handleHomeClick}
-              className="bg-white px-16 py-8 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+              className="bg-white px-8 py-6 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
             >
               Home
             </button>
 
             <button
               onClick={buttonAction}
-              className="bg-white px-16 py-8 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+              className="bg-white px-8 py-6 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
             >
               {buttonText}
             </button>

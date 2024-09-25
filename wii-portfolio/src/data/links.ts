@@ -1,7 +1,7 @@
 import spotifyimage from "@/assets/channels/spotify.png";
 import projectsimage from "@/assets/channels/projects.png";
 import experienceimage from "@/assets/channels/experience.webp";
-import resumeimage from "@/assets/channels/resume.webp";
+import resumeimage from "@/assets/channels/resume.png";
 import aboutimage from "@/assets/channels/about.jpg";
 
 const links = [
@@ -13,7 +13,7 @@ const links = [
   },
   {
     name: "experience",
-    icon: "📁",
+    icon: "💼",
     route: "/experience",
     backgroundImage: experienceimage,
   },
