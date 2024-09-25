@@ -65,16 +65,19 @@ function ExperiencePage() {
       <h1 className="text-4xl font-bold text-center mb-6">Experience</h1>
 
       <div className="space-y-8 relative">
-        {/* Timeline vertical line */}
-        <div className="absolute left-1/4 h-full border-l-2 border-gray-200"></div>
+        {/* Timeline vertical line, hidden on mobile */}
+        <div className="absolute left-1/4 h-full border-l-2 border-gray-200 hidden md:block"></div>
 
         {/* Mapping experiences */}
         {experiences.map((experience, index) => (
           <div className="flex items-start relative" key={index}>
-            <div className="w-1/4 text-gray-500 text-lg font-semibold text-right pr-4">
+            {/* Date column, hidden on mobile */}
+            <div className="w-1/4 text-gray-500 text-lg font-semibold text-right pr-4 hidden md:block">
               {experience.date}
             </div>
-            <div className="w-3/4 pl-8">
+
+            {/* Experience card, full width on mobile */}
+            <div className="w-full md:w-3/4 md:pl-8">
               <ExperienceCard
                 role={experience.role}
                 company={experience.company}

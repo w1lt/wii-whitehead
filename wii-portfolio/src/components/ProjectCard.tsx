@@ -24,7 +24,6 @@ export default function ProjectCard({
       <h2 className="text-2xl font-semibold">{title}</h2>
       <p className="text-lg text-gray-700 leading-relaxed">{description}</p>
       <div className="mt-4">
-        <h3 className="font-semibold text-gray-700">Technologies:</h3>
         <ul className="flex flex-wrap mt-1">
           {technologies.map((tech, index) => (
             <li

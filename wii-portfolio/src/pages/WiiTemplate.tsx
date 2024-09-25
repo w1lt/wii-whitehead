@@ -10,6 +10,8 @@ import SpotifyPage from "./SpotifyPage";
 import SettingsPage from "./SettingsPage";
 import ProjectsPage from "./ProjectsPage";
 import ResumePage from "./ResumePage";
+import nextPageSound from "@/assets/sounds/nextpage.mp3"; // Import the next page sound
+import click from "@/assets/sounds/click.mp3"; // Import the click sound
 
 function WiiTemplate() {
   const navigate = useNavigate();
@@ -20,8 +22,12 @@ function WiiTemplate() {
 
   const pages = links.map((link) => link.route);
 
+  // Load the next page sound
+  const nextPageAudio = new Audio(nextPageSound);
   // Handles the 'Home' navigation
   const handleHomeClick = useCallback(() => {
+    const clickAudio = new Audio(click);
+    clickAudio.play();
     setZoomOut(true);
     setTimeout(() => {
       navigate("/");
@@ -110,6 +116,7 @@ function WiiTemplate() {
       (currentPageIndex + newDirection + pages.length) % pages.length;
 
     setDirection(newDirection);
+    nextPageAudio.play(); // Play the next page sound
     navigate(pages[nextPageIndex]);
 
     setTimeout(() => {

@@ -30,7 +30,7 @@ const projects = [
     title: "Pupil Pong",
     description:
       "Collaborated on an accessible version of Pong controlled by eye movement and voice commands.",
-    technologies: ["Python", "PyGame", "GazeTracking", "Speech Recognition"],
+    technologies: ["Python", "PyGame", "Speech Recognition"],
   },
 ];
 

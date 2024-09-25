@@ -5,9 +5,9 @@ import { useState, useEffect } from "react";
 function HomeFooter() {
   const [hours, setHours] = useState("");
   const [minutes, setMinutes] = useState("");
-  const [ampm, setAmpm] = useState("");
+  const [, setAmpm] = useState("");
   const [colonVisible, setColonVisible] = useState(true);
-  const [, setDate] = useState("");
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     const updateTime = () => {
@@ -21,20 +21,24 @@ function HomeFooter() {
       setAmpm(ampm);
       setColonVisible((prev) => !prev);
 
+      // Manually format the date without a comma
       const day = now.getDate();
-      const month = now.getMonth() + 1;
-      setDate(`Sun ${month}/${day}`);
+      const month = now.getMonth() + 1; // Month is 0-indexed
+      const weekday = now.toLocaleString("en-US", { weekday: "short" });
+
+      const formattedDate = `${weekday} ${month}/${day}`;
+      setDate(formattedDate);
     };
 
     updateTime();
-    const intervalId = setInterval(updateTime, 1000);
+    const intervalId = setInterval(updateTime, 500);
 
     return () => clearInterval(intervalId);
   }, []);
 
   return (
     <>
-      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex justify-between w-full px-20 z-10">
+      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex justify-between w-full px-20 z-10">
         <a
           href="https://www.linkedin.com/in/willwhitehead122/"
           target="_blank"
@@ -47,13 +51,14 @@ function HomeFooter() {
         </a>
 
         <div className="text-center">
-          <p className="text-4xl text-gray-600">
-            <code>
+          <code>
+            {" "}
+            <p className="text-4xl text-gray-600">
               {hours}
-              <span>{colonVisible ? ":" : " "}</span>
-              {minutes} <span className="text-xl">{ampm}</span>
-            </code>
-          </p>
+              {colonVisible ? ":" : " "}
+              {minutes}
+            </p>
+          </code>
         </div>
 
         <a
@@ -104,7 +109,9 @@ function HomeFooter() {
             <div className="bg-gray-200 w-[170px] h-[70px]"></div>
           </div>
         </div>
-        <div className="bg-gray-200 h-[100px] w-full"></div>
+        <div className="bg-gray-200 h-[90px] w-full flex items-start justify-center">
+          <p className="text-4xl text-gray-400 font-bold mt-4">{date}</p>
+        </div>
       </footer>
     </>
   );

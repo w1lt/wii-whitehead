@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { Route, Routes, HashRouter as Router } from "react-router-dom";
 import CustomCursor from "./CustomCursor";
 import "./App.css";
 import HomePage from "./pages/HomePage";
@@ -11,8 +11,6 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
-
-          {/* Wrap all non-home routes with the single WiiTemplate */}
           <Route path="/*" element={<WiiTemplate />} />
         </Routes>
       </Router>

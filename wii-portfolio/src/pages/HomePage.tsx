@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import HomeFooter from "@/components/HomeFooter";
 import ChannelComponent from "@/components/ChannelComponent"; // Import ChannelComponent
 import links from "@/data/links";
+import click from "@/assets/sounds/click.mp3"; // Import the click sound
 
 function HomePage() {
   const navigate = useNavigate();
@@ -17,11 +18,17 @@ function HomePage() {
   const [, setIsZooming] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
+  // Total number of channels (4 wide x 3 tall)
+  const totalGridItems = 4 * 3;
+  const numPlaceholders = totalGridItems - links.length; // Calculate how many placeholders are needed
+
   const handleChannelClick = (
     index: number,
     route: string,
     element: HTMLElement
   ) => {
+    const clickAudio = new Audio(click);
+    clickAudio.play();
     const rect = element.getBoundingClientRect();
     setZoomPosition({
       left: rect.left,
@@ -57,7 +64,7 @@ function HomePage() {
         variants={fadeOutVariants}
         className="relative min-h-screen flex flex-col items-center"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl w-full px-5 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl w-full px-4 sm:px-28 mt-14">
           {links.map((channel, index) => (
             <ChannelComponent
               key={index}
@@ -65,6 +72,20 @@ function HomePage() {
               index={index}
               onClick={handleChannelClick}
             />
+          ))}
+
+          {Array.from({ length: numPlaceholders }).map((_, index) => (
+            <div
+              key={index}
+              className="relative border border-gray-300 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 hidden sm:flex"
+            >
+              <div className="p-4 flex flex-col items-center justify-center z-10">
+                <p className="text-6xl opacity-0">☻</p>
+                <p className="text-sm font-semibold mt-2 text-center text-gray-400">
+                  willwhitehead.com
+                </p>
+              </div>
+            </div>
           ))}
         </div>
 
@@ -97,7 +118,10 @@ function HomePage() {
           </motion.div>
         )}
 
-        <HomeFooter />
+        {/* Render footer only if not on mobile */}
+        <div className="hidden sm:block">
+          <HomeFooter />
+        </div>
       </motion.div>
     </motion.div>
   );
