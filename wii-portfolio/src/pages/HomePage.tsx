@@ -80,8 +80,8 @@ function HomePage() {
               className="relative border border-gray-300 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 hidden sm:flex"
             >
               <div className="p-4 flex flex-col items-center justify-center z-10">
-                <p className="text-6xl opacity-0">☻</p>
-                <p className="text-sm font-semibold mt-2 text-center text-gray-400">
+                <p className="text-6xl opacity-0">e</p>
+                <p className="text-md font-bold mt-2 text-center text-gray-400">
                   willwhitehead.com
                 </p>
               </div>

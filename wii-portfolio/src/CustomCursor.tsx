@@ -6,6 +6,12 @@ import grabShadowImage from "@/assets/ui/grabshadow.png";
 
 const CustomCursor = () => {
   useEffect(() => {
+    const isMobile = window.innerWidth < 768; // You can adjust this breakpoint if needed
+
+    if (isMobile) {
+      // Do not show the custom cursor on mobile
+      return;
+    }
     const cursorPos = { x: 0, y: 0 };
     const trailPos = { x: 0, y: 0 };
 
