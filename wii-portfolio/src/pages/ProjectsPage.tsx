@@ -26,12 +26,6 @@ const projects = [
       "Developed a recipe sharing social media app using React and Firebase.",
     technologies: ["JavaScript", "React", "Firebase", "Material UI"],
   },
-  {
-    title: "Pupil Pong",
-    description:
-      "Collaborated on an accessible version of Pong controlled by eye movement and voice commands.",
-    technologies: ["Python", "PyGame", "Speech Recognition"],
-  },
 ];
 
 function ProjectsPage() {
