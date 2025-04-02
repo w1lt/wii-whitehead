@@ -1,8 +1,7 @@
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import CustomCursor from "./CustomCursor";
 import "./App.css";
-import HomePage from "./pages/HomePage";
-import WiiTemplate from "./pages/WiiTemplate";
+import HealthWarningScreen from "./components/StartScreen";
 
 function App() {
   return (
@@ -10,8 +9,7 @@ function App() {
       <CustomCursor />
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/*" element={<WiiTemplate />} />
+          <Route path="/*" element={<HealthWarningScreen />} />
         </Routes>
       </Router>
     </div>

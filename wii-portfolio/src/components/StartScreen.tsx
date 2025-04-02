@@ -1,0 +1,73 @@
+import { useEffect, useRef, useState } from "react";
+import HomePage from "@/pages/HomePage";
+import { motion } from "framer-motion";
+
+export default function HealthWarningScreen() {
+  const [acknowledged, setAcknowledged] = useState(false);
+  const [showFade, setShowFade] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  const handleAcknowledge = () => {
+    // Trigger fade to black
+    setShowFade(true);
+
+    // Delay actual page switch
+    setTimeout(() => {
+      setAcknowledged(true);
+    }, 500); // Adjust fade duration here (500ms)
+  };
+
+  if (acknowledged) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <HomePage />
+      </motion.div>
+    );
+  }
+
+  return (
+    <div
+      ref={ref}
+      onClick={handleAcknowledge}
+      onKeyDown={handleAcknowledge}
+      tabIndex={0}
+      className="w-full h-screen bg-black text-white flex flex-col items-center justify-center text-center px-4 cursor-pointer focus:outline-none relative"
+    >
+      <div className="text-yellow-400 text-4xl font-bold mb-6 flex items-center gap-3">
+        <span className="hidden md:inline">⚠️</span>
+        <span>WARNING - HEALTH AND SAFETY</span>
+      </div>
+      <p className="text-2xl max-w-2xl mb-10 leading-relaxed">
+        BEFORE PLAYING, READ YOUR OPERATIONS MANUAL FOR IMPORTANT INFORMATION
+        ABOUT YOUR HEALTH AND SAFETY.
+      </p>
+      <p className="text-lg text-gray-400 mb-16">
+        Also online at <br />
+        <span className="text-blue-400 underline text-xl">
+          www.willwhitehead.com
+        </span>
+      </p>
+      <p className="text-xl animate-pulse">
+        Click or Press Any Key to continue
+      </p>
+
+      {/* Fade to black overlay */}
+      {showFade && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="absolute inset-0 bg-black z-50"
+        />
+      )}
+    </div>
+  );
+}
