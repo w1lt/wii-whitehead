@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import HomePage from "@/pages/HomePage";
 import { motion } from "framer-motion";
+import click from "@/assets/sounds/click.mp3"; // Import the click sound
 
 export default function HealthWarningScreen() {
   const [acknowledged, setAcknowledged] = useState(false);
@@ -12,6 +13,8 @@ export default function HealthWarningScreen() {
   }, []);
 
   const handleAcknowledge = () => {
+    const clickAudio = new Audio(click);
+    clickAudio.play();
     // Trigger fade to black
     setShowFade(true);
 

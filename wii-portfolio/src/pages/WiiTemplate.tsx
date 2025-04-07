@@ -30,7 +30,7 @@ function WiiTemplate() {
     clickAudio.play();
     setZoomOut(true);
     setTimeout(() => {
-      navigate("/");
+      navigate("/home");
       setZoomOut(false);
     }, 175);
   }, [navigate]);
