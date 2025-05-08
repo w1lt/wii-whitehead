@@ -34,7 +34,7 @@ function ProjectsPage() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="max-w-7xl mx-auto p-6 bg-white rounded-lg"
+      className="max-w-4xl mx-auto p-6 bg-white rounded-lg"
     >
       <h1 className="text-4xl font-bold text-center mb-6">Projects</h1>
 

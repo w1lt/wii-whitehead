@@ -10,26 +10,20 @@ function AboutPage() {
     >
       <h1 className="text-4xl font-bold text-center mb-6">About Me</h1>
       <p className="text-xl text-gray-700 leading-relaxed mb-4">
-        Hi, I'm <span className="font-semibold">Will</span>. I'm a Computer
-        Science student at the University of Kansas and a passionate software
-        developer with a strong background in web development.
+        I'm <span className="font-semibold">Will</span>, a Computer Science
+        student at the University of Kansas with a focus on full-stack
+        development, systems design, and fintech.
       </p>
       <p className="text-xl text-gray-700 leading-relaxed mb-4">
-        I'm currently working on two exciting projects:
-        <span className="font-semibold"> CSjobs</span> and
-        <span className="font-semibold"> Tickget</span>. Both projects focus on
-        creating streamlined solutions for job seekers and event ticket
-        management.
+        This summer, I’ll be interning at{" "}
+        <span className="font-semibold">Cboe Global Markets</span>, where I’ll
+        help build production software for one of the world's leading financial
+        exchanges.
       </p>
       <p className="text-xl text-gray-700 leading-relaxed mb-4">
-        I'm really excited to start my next semester at KU, and I'm actively
-        seeking summer internship roles for{" "}
-        <span className="font-semibold">'25</span>. I love collaborating with
-        teams to build meaningful software, and I'm eager to apply my skills and
-        learn more in the industry.
-      </p>
-      <p className="text-xl text-gray-700 leading-relaxed">
-        Feel free to reach out if you'd like to connect!
+        I like building tools that solve real problems, especially ones with
+        business or product potential. I'm always learning, experimenting, and
+        looking for smart people to build with.
       </p>
     </motion.div>
   );

@@ -3,23 +3,11 @@ import { IconBrandGithub } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 
 function HomeFooter() {
-  const [hours, setHours] = useState("");
-  const [minutes, setMinutes] = useState("");
-  const [, setAmpm] = useState("");
-  const [colonVisible, setColonVisible] = useState(true);
   const [date, setDate] = useState("");
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const hours = now.getHours() % 12 || 12;
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      const ampm = now.getHours() >= 12 ? "PM" : "AM";
-
-      setHours(hours.toString());
-      setMinutes(minutes);
-      setAmpm(ampm);
-      setColonVisible((prev) => !prev);
 
       // Manually format the date without a comma
       const day = now.getDate();
@@ -49,17 +37,6 @@ function HomeFooter() {
             <IconBrandLinkedin size={32} />
           </span>
         </a>
-
-        <div className="text-center">
-          <code>
-            {" "}
-            <p className="text-4xl text-gray-600">
-              {hours}
-              {colonVisible ? ":" : " "}
-              {minutes}
-            </p>
-          </code>
-        </div>
 
         <a
           href="https://github.com/w1lt"

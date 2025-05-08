@@ -1,4 +1,3 @@
-import spotifyimage from "@/assets/channels/spotify.png";
 import projectsimage from "@/assets/channels/projects.png";
 import experienceimage from "@/assets/channels/experience.webp";
 import resumeimage from "@/assets/channels/resume.png";
@@ -29,13 +28,6 @@ const links = [
     route: "/projects",
     backgroundImage: projectsimage,
   },
-  {
-    name: "spotify",
-    icon: "🎧",
-    route: "/spotify",
-    backgroundImage: spotifyimage, // Directly use the imported image variable
-  },
-
   {
     name: "settings",
     icon: "⚙️",

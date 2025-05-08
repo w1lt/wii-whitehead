@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { IconDownload } from "@tabler/icons-react";
+import { motion } from "framer-motion";
 
 function ResumePage() {
   useEffect(() => {
@@ -10,8 +11,13 @@ function ResumePage() {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold text-center mb-6">My Resume</h1>
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-4xl mx-auto p-6 bg-white rounded-lg"
+    >
+      <h1 className="text-4xl font-bold text-center mb-6">Resume</h1>
 
       <div className="relative">
         <img
@@ -31,7 +37,7 @@ function ResumePage() {
           <span>Download</span>
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

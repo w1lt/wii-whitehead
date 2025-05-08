@@ -48,10 +48,10 @@ function SettingsPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="max-w-3xl mx-auto p-6 bg-white"
+      className="max-w-4xl mx-auto p-6 bg-white rounded-lg"
     >
       <h1 className="text-4xl font-bold text-center mb-8">Settings</h1>
 

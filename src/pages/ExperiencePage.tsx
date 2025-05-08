@@ -25,32 +25,39 @@ function ExperienceCard({ role, company, description }: ExperienceCardProps) {
 // Experience data array
 const experiences = [
   {
-    role: "Tech Team Lead",
-    company: "HackKU",
-    date: "Aug 2024 - Present",
+    role: "Incoming Web Development Intern",
+    company: "Cboe Global Markets",
+    date: "Summer 2025",
     description:
-      "Leading the tech team, responsible for building the HackKU portal using React and FastAPI. Focused on high-performance API responses and QR code-based user authentication for event check-ins.",
+      "Selected for a 10-week SWE internship at a major options exchange, joining the Web Engineering team.",
   },
   {
-    role: "Financial Analyst Intern",
-    company: "Tradebot",
-    date: "Summer 2024",
+    role: "Technology Director",
+    company: "HackKU25",
+    date: "May 2024 – Apr 2025",
     description:
-      "Developed a web dashboard using Pandas and NumPy to aggregate and display market data, aiding researchers in formulating new trading strategies. Attended market microstructure lectures to deepen my understanding of market dynamics.",
+      "Built a hackathon platform used by 900+ registrants with real-time check-ins, live metrics, and role-based admin tools.",
   },
   {
-    role: "Owner",
+    role: "Quantitative Trading Intern",
+    company: "Tradebot Systems",
+    date: "Jun 2024 – Jul 2024",
+    description:
+      "Visualized order book dynamics, backtested signals, and automated data aggregation for multi-exchange feeds.",
+  },
+  {
+    role: "Founder",
     company: "Exodus",
-    date: "Aug 2022 - Aug 2023",
+    date: "Aug 2022 – Aug 2023",
     description:
-      "Generated $1,500 in revenue across five countries through organic marketing strategies. Drove over 4,000 store sessions, achieving 65 conversions.",
+      "Launched an e-commerce brand with 4,000+ sessions and 65 conversions through organic social campaigns.",
   },
   {
     role: "Web Director",
     company: "ACM at KU",
-    date: "Dec 2023 - May 2024",
+    date: "Dec 2023 – May 2024",
     description:
-      "Redesigned and maintained the ACM website using Astro, React, and Tailwind CSS.",
+      "Developed KU ACM’s website and tutoring tool using Astro and Tailwind; automated deploys via GitHub Actions.",
   },
 ];
 
