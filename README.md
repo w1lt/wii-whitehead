@@ -1,6 +1,6 @@
 personal site inspired by the wii home screen. feel free to use for your own site.
 
-# technologies
+### technologies
 
 - vite
 - react
@@ -9,7 +9,7 @@ personal site inspired by the wii home screen. feel free to use for your own sit
 - framer motion
 - github Actions (for deployment)
 
-# scripts
+### scripts
 
 ```bash
 npm run dev       # Start local development
