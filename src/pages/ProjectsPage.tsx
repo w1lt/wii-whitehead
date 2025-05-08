@@ -1,34 +1,39 @@
 import { motion } from "framer-motion";
-import ProjectCard from "@/components/ProjectCard";
 
-const projects = [
-  {
-    title: "Tickget",
-    description:
-      "Developed a ticket reselling platform for students with peer-to-peer payments using Stripe and PayPal.",
-    technologies: ["TypeScript", "Express", "React", "Postgres", "Stripe"],
-  },
-  {
-    title: "CSjobs",
-    description:
-      "Created a job search platform for students with full CRUD functionality and secure application tracking.",
-    technologies: ["JavaScript", "Express", "React", "Postgres", "Mantine UI"],
-  },
-  {
-    title: "HawkSwap",
-    description:
-      "Built a marketplace for KU students with real-time chat using Flask and AJAX.",
-    technologies: ["Python", "Flask", "Jinja2", "AJAX"],
-  },
-  {
-    title: "CookShare",
-    description:
-      "Developed a recipe sharing social media app using React and Firebase.",
-    technologies: ["JavaScript", "React", "Firebase", "Material UI"],
-  },
-];
+export default function ProjectsPage() {
+  const projects = [
+    {
+      title: "Tickget",
+      description:
+        "Built a peer-to-peer ticket resale platform for students with real-time listings and payment integration.",
+      technologies: ["TypeScript", "React", "Express", "PostgreSQL", "Stripe"],
+    },
+    {
+      title: "CSjobs",
+      description:
+        "Developed a job search portal for early-career CS students, supporting resume uploads, filters, and secure application tracking.",
+      technologies: ["JavaScript", "React", "Express", "PostgreSQL"],
+    },
+    {
+      title: "OpenSesame",
+      description:
+        "Led AI facial recognition system design for a smart doorbell using a Raspberry Pi and Pynq-Z2, with a custom web interface for visitor tracking.",
+      technologies: ["Python", "OpenCV", "Flask", "React", "Pynq-Z2"],
+    },
+    {
+      title: "HackKU Management System",
+      description:
+        "Designed and led development of the HackKU registration, scheduling, and check-in system used by 500+ attendees.",
+      technologies: ["Next.js", "Prisma", "Tailwind", "PostgreSQL"],
+    },
+    {
+      title: "Deal Sniper Extension",
+      description:
+        "Browser extension that scans Facebook Marketplace for underpriced tech, with authentication and real-time alerts.",
+      technologies: ["TypeScript", "Plasmo", "React", "Tailwind", "tRPC"],
+    },
+  ];
 
-function ProjectsPage() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -36,21 +41,34 @@ function ProjectsPage() {
       transition={{ duration: 0.5 }}
       className="max-w-4xl mx-auto p-6 bg-white rounded-lg"
     >
-      <h1 className="text-4xl font-bold text-center mb-6">Projects</h1>
-
-      {/* Grid layout for project cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <h1 className="text-4xl font-bold text-center mb-10">Projects</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {projects.map((project, index) => (
-          <ProjectCard
+          <motion.div
             key={index}
-            title={project.title}
-            description={project.description}
-            technologies={project.technologies} // Pass technologies to ProjectCard
-          />
+            whileHover={{
+              scale: 1.05,
+              y: -10,
+              boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="bg-white p-5 rounded-lg shadow-lg cursor-pointer"
+          >
+            <h2 className="text-2xl font-semibold mb-2">{project.title}</h2>
+            <p className="text-gray-700 text-lg mb-3">{project.description}</p>
+            <ul className="flex flex-wrap">
+              {project.technologies.map((tech, i) => (
+                <li
+                  key={i}
+                  className="text-sm bg-gray-100 px-2 py-1 rounded-full mr-2 mb-2"
+                >
+                  {tech}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         ))}
       </div>
     </motion.div>
   );
 }
-
-export default ProjectsPage;

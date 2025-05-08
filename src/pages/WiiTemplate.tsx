@@ -121,7 +121,7 @@ function WiiTemplate() {
 
     setTimeout(() => {
       isNavigating.current = false;
-    }, 600);
+    }, 500);
   };
 
   const variants = {
