@@ -1,17 +1,17 @@
-# Personal Portfolio
+# wii Portfolio
 
-This is my personal portfolio site built with modern web tools.
+personal site inspired by the wii home screen. feel free to use for your own site.
 
-## Technologies
+## technologies
 
-- Vite
-- React
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- GitHub Actions (for deployment)
+- vite
+- react
+- typeScript
+- tailwind CSS
+- framer motion
+- github Actions (for deployment)
 
-## Scripts
+## scripts
 
 ```bash
 npm run dev       # Start local development
