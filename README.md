@@ -7,11 +7,18 @@ personal site inspired by the wii home screen. feel free to use for your own sit
 - typeScript
 - tailwind CSS
 - framer motion
-- github Actions (for deployment)
+- github actions
 
 ### scripts
 
 ```bash
-npm run dev       # Start local development
-npm run deploy    # Deploy to GitHub Pages
+npm install
+```
+
+```bash
+npm run dev
+```
+
+```bash
+npm run deploy
 ```
