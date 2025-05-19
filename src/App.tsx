@@ -4,27 +4,48 @@ import {
   BrowserRouter as Router,
   useNavigate,
 } from "react-router-dom";
+import { useEffect } from "react";
 import CustomCursor from "./CustomCursor";
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import WiiTemplate from "./pages/WiiTemplate";
 import HealthWarningScreen from "./components/StartScreen";
-import { useEffect } from "react";
+
+// Simple mobile device check
+const isMobileDevice = () => /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+// Fallback page shown on mobile
+function MobileFallback() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-2 min-h-screen bg-zinc-950 text-white relative">
+      <a href="https://l.willwhitehead.com/">linkedin</a>
+      <a href="https://g.willwhitehead.com/">github</a>
+      <span className="absolute bottom-4 text-sm text-zinc-400">
+        visit on desktop for full experience
+      </span>
+    </div>
+  );
+}
+
+function RedirectHandler() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirectPath = sessionStorage.redirect;
+    if (redirectPath) {
+      sessionStorage.removeItem("redirect");
+      navigate(redirectPath, { replace: true });
+    }
+  }, [navigate]);
+
+  return null;
+}
 
 function App() {
-  function RedirectHandler() {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-      const redirectPath = sessionStorage.redirect;
-      if (redirectPath) {
-        sessionStorage.removeItem("redirect");
-        navigate(redirectPath, { replace: true });
-      }
-    }, [navigate]);
-
-    return null;
+  if (isMobileDevice()) {
+    return <MobileFallback />;
   }
+
   return (
     <div className="gridlines">
       <CustomCursor />
