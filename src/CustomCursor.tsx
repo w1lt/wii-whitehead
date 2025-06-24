@@ -15,37 +15,41 @@ const CustomCursor = () => {
     const cursorPos = { x: 0, y: 0 };
     const trailPos = { x: 0, y: 0 };
 
-    // Main cursor
-    const customCursor = document.createElement("img");
-    customCursor.src = cursorImage;
-    customCursor.style.position = "fixed";
-    customCursor.style.pointerEvents = "none";
-    customCursor.style.width = "90px";
-    customCursor.style.height = "90px";
-    customCursor.style.zIndex = "1000";
-    customCursor.style.display = "none"; // Start hidden
-    document.body.appendChild(customCursor);
+    const createCursorElement = (
+      src: string,
+      zIndex: number,
+      opacity = "1"
+    ) => {
+      const element = document.createElement("img");
+      element.src = src;
+      element.style.position = "fixed";
+      element.style.pointerEvents = "none";
+      element.style.width = "90px";
+      element.style.height = "90px";
+      element.style.zIndex = String(zIndex);
+      element.style.display = "none"; // Start hidden
+      element.style.top = "0";
+      element.style.left = "0";
+      element.style.willChange = "transform";
+      element.style.opacity = opacity;
+      document.body.appendChild(element);
+      return element;
+    };
 
-    // Cursor trail
-    const cursorTrail = document.createElement("img");
-    cursorTrail.src = cursorTrailImage;
-    cursorTrail.style.position = "fixed";
-    cursorTrail.style.pointerEvents = "none";
-    cursorTrail.style.width = "90px";
-    cursorTrail.style.height = "90px";
-    cursorTrail.style.zIndex = "999";
-    cursorTrail.style.display = "none"; // Start hidden
-    cursorTrail.style.opacity = ".3";
-    document.body.appendChild(cursorTrail);
+    // Create all cursor and trail variations
+    const cursorDefault = createCursorElement(cursorImage, 1000);
+    const cursorGrab = createCursorElement(grabImage, 1000);
+    const trailDefault = createCursorElement(cursorTrailImage, 999, ".3");
+    const trailGrab = createCursorElement(grabShadowImage, 999, ".3");
 
     // Function to update cursor position
     const updateCursorPosition = (e: MouseEvent) => {
       cursorPos.x = e.clientX - 40; // Adjust for cursor center
       cursorPos.y = e.clientY - 40;
 
-      // Show the custom cursor and trail when moving within the page
-      customCursor.style.display = "block";
-      cursorTrail.style.display = "block";
+      // Show the default cursor and trail when moving within the page
+      cursorDefault.style.display = "block";
+      trailDefault.style.display = "block";
     };
 
     // Function to update trail position with a slight delay
@@ -58,20 +62,26 @@ const CustomCursor = () => {
 
     // Hide cursor and trail when leaving the window
     const hideCursorOnLeave = () => {
-      customCursor.style.display = "none";
-      cursorTrail.style.display = "none";
+      cursorDefault.style.display = "none";
+      cursorGrab.style.display = "none";
+      trailDefault.style.display = "none";
+      trailGrab.style.display = "none";
     };
 
     // Change cursor and trail to grabbing state on click
     const handleMouseDown = () => {
-      customCursor.src = grabImage; // Change to grab image
-      cursorTrail.src = grabShadowImage; // Change trail to grab shadow
+      cursorDefault.style.display = "none";
+      cursorGrab.style.display = "block";
+      trailDefault.style.display = "none";
+      trailGrab.style.display = "block";
     };
 
     // Revert cursor and trail to normal on mouse up
     const handleMouseUp = () => {
-      customCursor.src = cursorImage; // Revert back to cursor image
-      cursorTrail.src = cursorTrailImage; // Revert back to trail image
+      cursorDefault.style.display = "block";
+      cursorGrab.style.display = "none";
+      trailDefault.style.display = "block";
+      trailGrab.style.display = "none";
     };
 
     // Mouse move listener for cursor movement
@@ -83,11 +93,13 @@ const CustomCursor = () => {
     // Rendering positions of the custom cursor and trail
     const render = () => {
       updateTrailPosition(); // Move the trail
-      customCursor.style.left = `${cursorPos.x}px`;
-      customCursor.style.top = `${cursorPos.y}px`;
+      const cursorTransform = `translate3d(${cursorPos.x}px, ${cursorPos.y}px, 0)`;
+      cursorDefault.style.transform = cursorTransform;
+      cursorGrab.style.transform = cursorTransform;
 
-      cursorTrail.style.left = `${trailPos.x}px`;
-      cursorTrail.style.top = `${trailPos.y}px`;
+      const trailTransform = `translate3d(${trailPos.x}px, ${trailPos.y}px, 0)`;
+      trailDefault.style.transform = trailTransform;
+      trailGrab.style.transform = trailTransform;
 
       requestAnimationFrame(render); // Continuous update
     };
@@ -99,8 +111,10 @@ const CustomCursor = () => {
       window.removeEventListener("mouseleave", hideCursorOnLeave);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
-      document.body.removeChild(customCursor);
-      document.body.removeChild(cursorTrail);
+      document.body.removeChild(cursorDefault);
+      document.body.removeChild(cursorGrab);
+      document.body.removeChild(trailDefault);
+      document.body.removeChild(trailGrab);
     };
   }, []);
 

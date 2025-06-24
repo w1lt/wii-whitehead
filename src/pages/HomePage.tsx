@@ -57,36 +57,44 @@ function HomePage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      className="h-screen flex flex-col"
     >
       <motion.div
         initial="initial"
         animate={fadeOut ? "fade" : "initial"}
         variants={fadeOutVariants}
-        className="relative min-h-screen flex flex-col items-center"
+        className="relative flex-1 flex flex-col"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl w-full px-4 sm:px-28 mt-14">
-          {links.map((channel, index) => (
-            <ChannelComponent
-              key={index}
-              channel={channel}
-              index={index}
-              onClick={handleChannelClick}
-            />
-          ))}
-
-          {Array.from({ length: numPlaceholders }).map((_, index) => (
-            <div
-              key={index}
-              className="relative border border-gray-300 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 hidden sm:flex"
-            >
-              <div className="p-4 flex flex-col items-center justify-center z-10">
-                <p className="text-6xl opacity-0">e</p>
-                <p className="text-md font-bold mt-2 text-center text-gray-400">
-                  willwhitehead.com
-                </p>
+        {/* Main content area that takes up 75% of screen height */}
+        <div className="flex flex-col items-center justify-center h-[75vh] pt-[5vh]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {links.map((channel, index) => (
+              <div
+                key={index}
+                className="aspect-[5/3] w-[17.5vw] max-w-[220px]"
+              >
+                <ChannelComponent
+                  channel={channel}
+                  index={index}
+                  onClick={handleChannelClick}
+                />
               </div>
-            </div>
-          ))}
+            ))}
+
+            {Array.from({ length: numPlaceholders }).map((_, index) => (
+              <div
+                key={index}
+                className="relative border border-gray-300 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 hidden sm:flex aspect-[5/3] w-[17.5vw] max-w-[220px]"
+              >
+                <div className="p-4 flex flex-col items-center justify-center z-10">
+                  <p className="text-6xl opacity-0">e</p>
+                  <p className="text-md font-bold mt-2 text-center text-gray-400">
+                    willwhitehead.com
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {zoom !== null && (
@@ -118,8 +126,8 @@ function HomePage() {
           </motion.div>
         )}
 
-        {/* Render footer only if not on mobile */}
-        <div className="hidden sm:block">
+        {/* Render footer only if not on mobile - positioned in the bottom 25% */}
+        <div className=" sm:block flex items-center justify-center h-[25vh]">
           <HomeFooter />
         </div>
       </motion.div>

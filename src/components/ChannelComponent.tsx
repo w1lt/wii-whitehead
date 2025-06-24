@@ -27,13 +27,13 @@ const ChannelComponent: React.FC<ChannelProps> = ({
       onClick={(e) => onClick(index, channel.route, e.currentTarget)}
       whileHover={hoverAnimation}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="relative border border-gray-300 rounded-3xl shadow-lg flex flex-col items-center justify-center overflow-hidden group bg-black"
+      className="relative border border-gray-300 rounded-3xl shadow-lg flex flex-col items-center justify-center overflow-hidden group bg-black h-full w-full"
     >
-      <div className="relative w-full h-full bg-black">
+      <div className="absolute inset-0 w-full h-full bg-black">
         <img
           src={channel.backgroundImage}
           alt={`${channel.name} background`}
-          className="absolute transform opacity-100 -top-8 transition-transform duration-300 group-hover:-translate-y-2"
+          className="absolute inset-0 w-full h-full object-cover opacity-100 transition-transform duration-300 group-hover:scale-105"
           style={{ backgroundColor: "black" }}
         />
       </div>
@@ -49,9 +49,9 @@ const ChannelComponent: React.FC<ChannelProps> = ({
       ></div>
 
       {/* Content */}
-      <div className="p-4 flex flex-col items-center justify-center z-10">
-        <p className="text-6xl">{channel.icon}</p>
-        <p className="text-xl font-semibold mt-2 text-center text-white group-hover:translate-y-0 transition-transform duration-300">
+      <div className="relative z-20 flex flex-col items-center justify-center h-full p-4">
+        <p className="text-4xl sm:text-5xl lg:text-6xl">{channel.icon}</p>
+        <p className="text-sm sm:text-lg lg:text-xl font-semibold mt-2 text-center text-white group-hover:translate-y-0 transition-transform duration-300">
           {channel.name}
         </p>
       </div>
