@@ -2,38 +2,34 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import links from "@/data/links";
+import { useSound } from "@/contexts/SoundContext";
 
 import arrow from "@/assets/ui/arrow.png";
 import AboutPage from "./AboutPage";
 import ExperiencePage from "./ExperiencePage";
 import SpotifyPage from "./SpotifyPage";
-import SettingsPage from "./SettingsPage";
+// import SettingsPage from "./SettingsPage";
 import ProjectsPage from "./ProjectsPage";
 import ResumePage from "./ResumePage";
-import nextPageSound from "@/assets/sounds/nextpage.mp3"; // Import the next page sound
-import click from "@/assets/sounds/click.mp3"; // Import the click sound
 
 function WiiTemplate() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { playClick, playNextPage } = useSound();
   const [direction, setDirection] = useState(0);
   const isNavigating = useRef(false);
   const [zoomOut, setZoomOut] = useState(false);
 
   const pages = links.map((link) => link.route);
-
-  // Load the next page sound
-  const nextPageAudio = new Audio(nextPageSound);
   // Handles the 'Home' navigation
   const handleHomeClick = useCallback(() => {
-    const clickAudio = new Audio(click);
-    clickAudio.play();
+    playClick();
     setZoomOut(true);
     setTimeout(() => {
       navigate("/home");
       setZoomOut(false);
     }, 175);
-  }, [navigate]);
+  }, [navigate, playClick]);
 
   // Listen for 'Esc' key to navigate to home
   useEffect(() => {
@@ -88,13 +84,13 @@ function WiiTemplate() {
               "https://docs.google.com/document/d/1AfyetAPTr0x9UEfcnXV7LvWgqlnbYmetNXsP6QqOhN4/export?format=pdf"
             ),
         };
-      case "/settings":
-        return {
-          content: <SettingsPage />,
-          buttonText: "View Source",
-          buttonAction: () =>
-            window.open("https://github.com/w1lt/wii-whitehead"),
-        };
+      // case "/settings":
+      //   return {
+      //     content: <SettingsPage />,
+      //     buttonText: "View Source",
+      //     buttonAction: () =>
+      //       window.open("https://github.com/w1lt/wii-whitehead"),
+      //   };
       default:
         return {
           content: <AboutPage />,
@@ -116,7 +112,7 @@ function WiiTemplate() {
       (currentPageIndex + newDirection + pages.length) % pages.length;
 
     setDirection(newDirection);
-    nextPageAudio.play(); // Play the next page sound
+    playNextPage(); // Play the next page sound
     navigate(pages[nextPageIndex]);
 
     setTimeout(() => {

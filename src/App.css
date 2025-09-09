@@ -7,7 +7,7 @@
   bottom: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0.4;
   background-image: linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   background-size: 100% 3px; /* Horizontal line spacing */
   animation: phase-lines 2s linear infinite; /* Infinite and seamless */
@@ -21,6 +21,15 @@
     transform: translateY(
       3px
     ); /* Move by the size of one grid line to be seamless */
+  }
+}
+
+@keyframes diagonal-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -48px -48px; /* Move diagonally up by one tile */
   }
 }
 

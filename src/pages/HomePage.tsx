@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { IconVolume, IconVolumeOff } from "@tabler/icons-react";
 import HomeFooter from "@/components/HomeFooter";
 import ChannelComponent from "@/components/ChannelComponent"; // Import ChannelComponent
 import links from "@/data/links";
-import click from "@/assets/sounds/click.mp3"; // Import the click sound
+import { useSound } from "@/contexts/SoundContext";
 
 function HomePage() {
   const navigate = useNavigate();
+  const { playClick, soundsEnabled, toggleSounds } = useSound();
   const [zoom, setZoom] = useState<number | null>(null);
   const [zoomPosition, setZoomPosition] = useState({
     left: 0,
@@ -27,8 +29,7 @@ function HomePage() {
     route: string,
     element: HTMLElement
   ) => {
-    const clickAudio = new Audio(click);
-    clickAudio.play();
+    playClick();
     const rect = element.getBoundingClientRect();
     setZoomPosition({
       left: rect.left,
@@ -65,6 +66,19 @@ function HomePage() {
         variants={fadeOutVariants}
         className="relative flex-1 flex flex-col"
       >
+        {/* Sound toggle button - top left */}
+        <button
+          onClick={toggleSounds}
+          className="absolute top-8 left-8 z-50  backdrop-blur-sm bg-black/10 border p-3 rounded-full hover:scale-110 transition-all duration-200"
+          title={soundsEnabled ? "Disable sounds" : "Enable sounds"}
+        >
+          {soundsEnabled ? (
+            <IconVolume size={20} className="text-black" />
+          ) : (
+            <IconVolumeOff size={20} className="text-black" />
+          )}
+        </button>
+
         {/* Main content area that takes up 75% of screen height */}
         <div className="flex flex-col items-center justify-center h-[75vh] pt-[5vh]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

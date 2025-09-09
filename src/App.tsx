@@ -10,6 +10,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import WiiTemplate from "./pages/WiiTemplate";
 import HealthWarningScreen from "./components/StartScreen";
+import { SoundProvider } from "./contexts/SoundContext";
 
 // Simple mobile device check
 const isMobileDevice = () => /Mobi|Android|iPhone/i.test(navigator.userAgent);
@@ -47,17 +48,19 @@ function App() {
   }
 
   return (
-    <div className="gridlines">
-      <CustomCursor />
-      <Router>
-        <RedirectHandler />
-        <Routes>
-          <Route path="/" element={<HealthWarningScreen />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/*" element={<WiiTemplate />} />
-        </Routes>
-      </Router>
-    </div>
+    <SoundProvider>
+      <div className="gridlines">
+        <CustomCursor />
+        <Router>
+          <RedirectHandler />
+          <Routes>
+            <Route path="/" element={<HealthWarningScreen />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/*" element={<WiiTemplate />} />
+          </Routes>
+        </Router>
+      </div>
+    </SoundProvider>
   );
 }
 

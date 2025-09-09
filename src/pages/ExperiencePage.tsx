@@ -25,9 +25,9 @@ function ExperienceCard({ role, company, description }: ExperienceCardProps) {
 // Experience data array
 const experiences = [
   {
-    role: "Incoming Web Development Intern",
+    role: "Software Engineer Intern",
     company: "Cboe Global Markets",
-    date: "Summer 2025",
+    date: "Jun 2025 - Present",
     description:
       "Selected for a 10-week SWE internship at a major options exchange, joining the Web Engineering team.",
   },

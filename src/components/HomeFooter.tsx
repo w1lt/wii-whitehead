@@ -87,7 +87,7 @@ function HomeFooter() {
           </div>
         </div>
         <div className="bg-gray-200 h-[90px] w-full flex items-start justify-center">
-          <p className="text-4xl text-gray-400 font-bold mt-4">{date}</p>
+          <p className="text-4xl text-gray-400 font-semibold mt-4">{date}</p>
         </div>
       </footer>
     </>

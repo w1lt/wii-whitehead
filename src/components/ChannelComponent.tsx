@@ -4,7 +4,6 @@ interface ChannelProps {
   channel: {
     name: string;
     icon: string;
-    backgroundImage?: string;
     route: string;
   };
   index: number;
@@ -29,21 +28,24 @@ const ChannelComponent: React.FC<ChannelProps> = ({
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="relative border border-gray-300 rounded-3xl shadow-lg flex flex-col items-center justify-center overflow-hidden group bg-black h-full w-full"
     >
-      <div className="absolute inset-0 w-full h-full bg-black">
-        <img
-          src={channel.backgroundImage}
-          alt={`${channel.name} background`}
-          className="absolute inset-0 w-full h-full object-cover opacity-100 transition-transform duration-300 group-hover:scale-105"
-          style={{ backgroundColor: "black" }}
-        />
-      </div>
+      {/* CSS-Based Infinite Diagonal Emoji Background */}
+      <div
+        className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 to-black overflow-hidden"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='48' height='48' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='24' y='32' font-size='24' text-anchor='middle' fill='white' opacity='0.6'%3E${encodeURIComponent(
+            channel.icon
+          )}%3C/text%3E%3C/svg%3E")`,
+          backgroundSize: "48px 48px",
+          animation: "diagonal-scroll 12s linear infinite",
+        }}
+      />
 
       {/* Gradient Overlay */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to top, rgba(0, 0, 0, .9), rgba(0, 0, 0, .6))",
+            "linear-gradient(to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .3))",
           zIndex: 10,
         }}
       ></div>
