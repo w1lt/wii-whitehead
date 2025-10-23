@@ -81,11 +81,11 @@ function HomePage() {
 
         {/* Main content area that takes up 75% of screen height */}
         <div className="flex flex-col items-center justify-center h-[75vh] pt-[5vh]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 xl:gap-8">
             {links.map((channel, index) => (
               <div
                 key={index}
-                className="aspect-[5/3] w-[17.5vw] max-w-[220px]"
+                className="aspect-[5/3] w-[80vw] sm:w-[40vw] lg:w-[20vw] xl:w-[18vw] max-w-[320px] min-w-[200px]"
               >
                 <ChannelComponent
                   channel={channel}
@@ -98,7 +98,7 @@ function HomePage() {
             {Array.from({ length: numPlaceholders }).map((_, index) => (
               <div
                 key={index}
-                className="relative border border-gray-300 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 hidden sm:flex aspect-[5/3] w-[17.5vw] max-w-[220px]"
+                className="relative border border-gray-300 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 hidden sm:flex aspect-[5/3] w-[80vw] sm:w-[40vw] lg:w-[20vw] xl:w-[18vw] max-w-[320px] min-w-[200px]"
               >
                 <div className="p-4 flex flex-col items-center justify-center z-10">
                   <p className="text-6xl opacity-0">e</p>
