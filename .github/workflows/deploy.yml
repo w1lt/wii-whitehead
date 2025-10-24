@@ -6,7 +6,7 @@ on:
       - main # Triggers on push to main branch
 
 permissions:
-  contents: write # Required for gh-pages deployment
+  contents: write
 
 jobs:
   build-and-deploy:
