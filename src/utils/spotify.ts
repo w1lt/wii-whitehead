@@ -8,7 +8,9 @@ console.log("Spotify env check:", {
   hasClientId: !!CLIENT_ID,
   hasClientSecret: !!CLIENT_SECRET,
   hasRefreshToken: !!REFRESH_TOKEN,
-  clientIdPrefix: CLIENT_ID?.substring(0, 5),
+  clientId: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  refreshToken: REFRESH_TOKEN,
 });
 
 const BASIC_AUTH = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
