@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { IconVolume, IconVolumeOff } from "@tabler/icons-react";
 import HomeFooter from "@/components/HomeFooter";
 import ChannelComponent from "@/components/ChannelComponent"; // Import ChannelComponent
 import links from "@/data/links";
@@ -9,7 +8,7 @@ import { useSound } from "@/contexts/SoundContext";
 
 function HomePage() {
   const navigate = useNavigate();
-  const { playClick, soundsEnabled, toggleSounds } = useSound();
+  const { playClick } = useSound();
   const [zoom, setZoom] = useState<number | null>(null);
   const [zoomPosition, setZoomPosition] = useState({
     left: 0,
@@ -66,19 +65,6 @@ function HomePage() {
         variants={fadeOutVariants}
         className="relative flex-1 flex flex-col"
       >
-        {/* Sound toggle button - top left */}
-        <button
-          onClick={toggleSounds}
-          className="absolute top-8 left-8 z-50  backdrop-blur-sm bg-black/10 border p-3 rounded-full hover:scale-110 transition-all duration-200"
-          title={soundsEnabled ? "Disable sounds" : "Enable sounds"}
-        >
-          {soundsEnabled ? (
-            <IconVolume size={20} className="text-black" />
-          ) : (
-            <IconVolumeOff size={20} className="text-black" />
-          )}
-        </button>
-
         {/* Main content area that takes up 75% of screen height */}
         <div className="flex flex-col items-center justify-center h-[75vh] pt-[5vh]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 xl:gap-8">
@@ -98,11 +84,11 @@ function HomePage() {
             {Array.from({ length: numPlaceholders }).map((_, index) => (
               <div
                 key={index}
-                className="relative border border-gray-300 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 hidden sm:flex aspect-[5/3] w-[80vw] sm:w-[40vw] lg:w-[20vw] xl:w-[18vw] max-w-[320px] min-w-[200px]"
+                className="relative border border-gray-300 dark:border-gray-700 rounded-3xl shadow-lg flex-col items-center justify-center overflow-hidden group bg-gray-300 dark:bg-gray-800 hidden sm:flex aspect-[5/3] w-[80vw] sm:w-[40vw] lg:w-[20vw] xl:w-[18vw] max-w-[320px] min-w-[200px]"
               >
                 <div className="p-4 flex flex-col items-center justify-center z-10">
                   <p className="text-6xl opacity-0">e</p>
-                  <p className="text-md font-bold mt-2 text-center text-gray-400">
+                  <p className="text-md font-bold mt-2 text-center text-gray-400 dark:text-gray-500">
                     willwhitehead.com
                   </p>
                 </div>
@@ -131,11 +117,13 @@ function HomePage() {
             transition={{
               duration: 0.25,
             }}
-            className="fixed bg-black flex justify-center items-center"
+            className="fixed bg-white dark:bg-black flex justify-center items-center"
           >
             <div className="text-center">
               <p className="text-6xl">{links[zoom].icon}</p>
-              <p className="text-xl font-semibold mt-2">{links[zoom].name}</p>
+              <p className="text-xl font-semibold mt-2 text-gray-900 dark:text-white">
+                {links[zoom].name}
+              </p>
             </div>
           </motion.div>
         )}

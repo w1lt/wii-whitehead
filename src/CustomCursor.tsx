@@ -47,6 +47,11 @@ const CustomCursor = () => {
       cursorPos.x = e.clientX - 40; // Adjust for cursor center
       cursorPos.y = e.clientY - 40;
 
+      // Immediately update cursor position for zero-lag feel
+      const cursorTransform = `translate3d(${cursorPos.x}px, ${cursorPos.y}px, 0)`;
+      cursorDefault.style.transform = cursorTransform;
+      cursorGrab.style.transform = cursorTransform;
+
       // Show the default cursor and trail when moving within the page
       cursorDefault.style.display = "block";
       trailDefault.style.display = "block";
@@ -90,12 +95,9 @@ const CustomCursor = () => {
     window.addEventListener("mousedown", handleMouseDown); // Listen for mouse down
     window.addEventListener("mouseup", handleMouseUp); // Listen for mouse up
 
-    // Rendering positions of the custom cursor and trail
+    // Rendering positions of the trail only (cursor updates immediately on mousemove)
     const render = () => {
       updateTrailPosition(); // Move the trail
-      const cursorTransform = `translate3d(${cursorPos.x}px, ${cursorPos.y}px, 0)`;
-      cursorDefault.style.transform = cursorTransform;
-      cursorGrab.style.transform = cursorTransform;
 
       const trailTransform = `translate3d(${trailPos.x}px, ${trailPos.y}px, 0)`;
       trailDefault.style.transform = trailTransform;

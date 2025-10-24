@@ -42,9 +42,9 @@ export default function HealthWarningScreen() {
       onClick={handleAcknowledge}
       onKeyDown={handleAcknowledge}
       tabIndex={0}
-      className="w-full h-screen bg-black text-white flex flex-col items-center justify-center text-center px-4 cursor-pointer focus:outline-none relative"
+      className="w-full h-screen bg-black dark:bg-gray-950 text-white flex flex-col items-center justify-center text-center px-4 cursor-pointer focus:outline-none relative"
     >
-      <div className="text-yellow-400 text-4xl font-bold mb-6 flex items-center gap-3">
+      <div className="text-yellow-400 dark:text-yellow-500 text-4xl font-bold mb-6 flex items-center gap-3">
         <span className="hidden md:inline">⚠️</span>
         <span>WARNING - HEALTH AND SAFETY</span>
       </div>
@@ -52,9 +52,9 @@ export default function HealthWarningScreen() {
         BEFORE PLAYING, READ YOUR OPERATIONS MANUAL FOR IMPORTANT INFORMATION
         ABOUT YOUR HEALTH AND SAFETY.
       </p>
-      <p className="text-lg text-gray-400 mb-16">
+      <p className="text-lg text-gray-400 dark:text-gray-500 mb-16">
         Also online at <br />
-        <span className="text-blue-400 underline text-xl">
+        <span className="text-blue-400 dark:text-blue-500 underline text-xl">
           www.willwhitehead.com
         </span>
       </p>

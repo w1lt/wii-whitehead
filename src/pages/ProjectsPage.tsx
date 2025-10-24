@@ -1,36 +1,36 @@
 import { motion } from "framer-motion";
+import { IconExternalLink } from "@tabler/icons-react";
 
 export default function ProjectsPage() {
   const projects = [
     {
-      title: "Tickget",
-      description:
-        "Built a peer-to-peer ticket resale platform for students with real-time listings and payment integration.",
-      technologies: ["TypeScript", "React", "Express", "PostgreSQL", "Stripe"],
+      name: "tickget",
+      icon: "🎫",
+      description: "Peer-to-peer ticket marketplace for students",
+      language: "TypeScript",
+      link: "https://github.com/w1lt/tickget",
     },
     {
-      title: "CSjobs",
-      description:
-        "Developed a job search portal for early-career CS students, supporting resume uploads, filters, and secure application tracking.",
-      technologies: ["JavaScript", "React", "Express", "PostgreSQL"],
+      name: "csjobs",
+      icon: "💼",
+      description: "Job search platform for early-career CS students",
+      language: "JavaScript",
+      link: "https://github.com/w1lt/csjobs",
     },
     {
-      title: "OpenSesame",
-      description:
-        "Led AI facial recognition system design for a smart doorbell using a Raspberry Pi and Pynq-Z2, with a custom web interface for visitor tracking.",
-      technologies: ["Python", "OpenCV", "Flask", "React", "Pynq-Z2"],
+      name: "opensesame",
+      icon: "🚪",
+      description: "AI-powered smart doorbell with facial recognition",
+      language: "Python",
+      link: "https://github.com/w1lt/opensesame",
     },
     {
-      title: "HackKU Management System",
+      name: "hackku",
+      icon: "🎯",
       description:
-        "Designed and led development of the HackKU registration, scheduling, and check-in system used by 500+ attendees.",
-      technologies: ["Next.js", "Prisma", "Tailwind", "PostgreSQL"],
-    },
-    {
-      title: "Deal Sniper Extension",
-      description:
-        "Browser extension that scans Facebook Marketplace for underpriced tech, with authentication and real-time alerts.",
-      technologies: ["TypeScript", "Plasmo", "React", "Tailwind", "tRPC"],
+        "Registration & management system for 500+ hackathon attendees",
+      language: "TypeScript",
+      link: "https://github.com/w1lt/hackku-24",
     },
   ];
 
@@ -39,34 +39,56 @@ export default function ProjectsPage() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="max-w-4xl mx-auto p-6 bg-white rounded-lg"
+      className="max-w-5xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg"
     >
-      <h1 className="text-4xl font-bold text-center mb-10">Projects</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <h1 className="text-4xl font-bold text-center mb-10 text-gray-900 dark:text-gray-100">
+        Projects
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {projects.map((project, index) => (
-          <motion.div
+          <a
             key={index}
-            whileHover={{
-              scale: 1.05,
-              y: -10,
-              boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="bg-white p-5 rounded-lg shadow-lg cursor-pointer"
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-200 cursor-pointer group"
           >
-            <h2 className="text-2xl font-semibold mb-2">{project.title}</h2>
-            <p className="text-gray-700 text-lg mb-3">{project.description}</p>
-            <ul className="flex flex-wrap">
-              {project.technologies.map((tech, i) => (
-                <li
-                  key={i}
-                  className="text-sm bg-gray-100 px-2 py-1 rounded-full mr-2 mb-2"
-                >
-                  {tech}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+            {/* External link icon */}
+            <div className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+              <IconExternalLink size={20} />
+            </div>
+
+            {/* Project name */}
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+              {project.name}
+            </h2>
+
+            {/* Icon and description */}
+            <div className="flex items-start gap-3 mb-4">
+              <span className="text-2xl">{project.icon}</span>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed flex-1">
+                {project.description}
+              </p>
+            </div>
+
+            {/* Language indicator */}
+            <div className="flex items-center gap-2">
+              <div
+                className={`w-3 h-3 rounded-full ${
+                  project.language === "TypeScript"
+                    ? "bg-blue-500 dark:bg-blue-400"
+                    : project.language === "JavaScript"
+                    ? "bg-yellow-500 dark:bg-yellow-400"
+                    : project.language === "Python"
+                    ? "bg-green-500 dark:bg-green-400"
+                    : "bg-gray-500 dark:bg-gray-400"
+                }`}
+              ></div>
+              <span className="text-gray-500 dark:text-gray-400 text-sm">
+                {project.language}
+              </span>
+            </div>
+          </a>
         ))}
       </div>
     </motion.div>

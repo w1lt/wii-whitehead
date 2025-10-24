@@ -71,7 +71,7 @@ function WiiTemplate() {
       case "/spotify":
         return {
           content: <SpotifyPage />,
-          buttonText: "Listen on Spotify",
+          buttonText: "Visit my Spotify",
           buttonAction: () =>
             window.open("https://open.spotify.com/", "_blank"),
         };
@@ -160,17 +160,17 @@ function WiiTemplate() {
             damping: 30,
             duration: 0.25,
           }}
-          className="fixed inset-0 bg-white rounded-[60px] shadow-lg pt-6 px-12 pb-12 flex flex-col justify-between"
+          className="fixed inset-0 bg-white dark:bg-gray-900 rounded-[60px] shadow-lg pt-6 flex flex-col"
           style={{ minHeight: "100vh", minWidth: "100vw" }}
         >
           {/* Scrollable content */}
-          <div className="overflow-y-auto flex-grow pb-24">{content}</div>
+          <div className="overflow-y-auto flex-grow px-12">{content}</div>
 
           {/* Navigation arrows */}
           <div className="absolute left-5 top-1/2 transform -translate-y-1/2">
             <button
               onClick={() => handlePageChange(-1)}
-              className="text-4xl transform transition-all duration-300 hover:scale-150"
+              className="text-4xl transform transition-all duration-300 hover:scale-150 cursor-pointer"
             >
               <img
                 src={arrow}
@@ -182,7 +182,7 @@ function WiiTemplate() {
           <div className="absolute right-5 top-1/2 transform -translate-y-1/2">
             <button
               onClick={() => handlePageChange(1)}
-              className="text-4xl transform transition-all duration-300 hover:scale-150"
+              className="text-4xl transform transition-all duration-300 hover:scale-150 cursor-pointer"
             >
               <img
                 src={arrow}
@@ -193,17 +193,17 @@ function WiiTemplate() {
           </div>
 
           {/* Footer with dynamic Start button */}
-          <footer className="fixed bottom-0 left-0 right-0 bg-gray-200 py-3 w-full flex justify-center items-center space-x-12">
+          <footer className="flex-shrink-0 bg-gray-200 dark:bg-gray-800 py-3 flex justify-center items-center space-x-12 mt-auto">
             <button
               onClick={handleHomeClick}
-              className="bg-white px-8 py-6 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+              className="bg-white dark:bg-gray-700 dark:text-white px-8 py-6 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer"
             >
               Home
             </button>
 
             <button
               onClick={buttonAction}
-              className="bg-white px-8 py-6 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+              className="bg-white dark:bg-gray-700 dark:text-white px-8 py-6 rounded-full shadow-lg text-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer"
             >
               {buttonText}
             </button>
