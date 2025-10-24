@@ -3,6 +3,14 @@ const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.VITE_SPOTIFY_REFRESH_TOKEN;
 
+// Debug logging (remove after fixing)
+console.log("Spotify env check:", {
+  hasClientId: !!CLIENT_ID,
+  hasClientSecret: !!CLIENT_SECRET,
+  hasRefreshToken: !!REFRESH_TOKEN,
+  clientIdPrefix: CLIENT_ID?.substring(0, 5),
+});
+
 const BASIC_AUTH = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const NOW_PLAYING_ENDPOINT =
@@ -34,6 +42,12 @@ interface SpotifyTrack {
 }
 
 async function getAccessToken(): Promise<string> {
+  if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+    throw new Error(
+      "Spotify credentials are not configured. Please set environment variables."
+    );
+  }
+
   const response = await fetch(TOKEN_ENDPOINT, {
     method: "POST",
     headers: {
@@ -47,6 +61,8 @@ async function getAccessToken(): Promise<string> {
   });
 
   if (!response.ok) {
+    const errorData = await response.text();
+    console.error("Spotify token error:", errorData);
     throw new Error("Failed to get access token");
   }
 
