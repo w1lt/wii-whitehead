@@ -20,10 +20,6 @@ npm install
 npm run dev
 ```
 
-```bash
-npm run deploy
-```
-
 ### spotify integration
 
 The site displays your last played or currently playing Spotify track. To set this up:
