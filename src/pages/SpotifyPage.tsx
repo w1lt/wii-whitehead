@@ -85,6 +85,17 @@ function SpotifyPage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Set previousTrackUrl after first load completes
+  useEffect(() => {
+    if (track?.songUrl && !previousTrackUrl.current && hasLoadedOnce.current) {
+      // Set it after the initial fade-in animation completes
+      const timer = setTimeout(() => {
+        previousTrackUrl.current = track.songUrl;
+      }, 500); // Match animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [track?.songUrl]);
+
   // Progress timer - updates every second
   useEffect(() => {
     // Clear existing interval
@@ -196,11 +207,10 @@ function SpotifyPage() {
                     <motion.div
                       key={track.songUrl}
                       initial={
-                        hasLoadedOnce.current &&
                         previousTrackUrl.current &&
                         previousTrackUrl.current !== track.songUrl
                           ? { opacity: 0, x: "100%" }
-                          : false
+                          : { opacity: 0 }
                       }
                       animate={{
                         opacity: 1,
@@ -219,7 +229,10 @@ function SpotifyPage() {
                       onMouseLeave={handleMouseLeave}
                       onClick={() => window.open(track.songUrl, "_blank")}
                       onAnimationComplete={() => {
-                        previousTrackUrl.current = track.songUrl;
+                        // Update previous track after slide animation completes
+                        if (previousTrackUrl.current !== track.songUrl) {
+                          previousTrackUrl.current = track.songUrl;
+                        }
                       }}
                     >
                       {/* Rotating content */}
